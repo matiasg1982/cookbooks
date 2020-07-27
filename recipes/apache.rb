@@ -16,6 +16,11 @@ node["lamp_stack"]["sites"].each do |sitename, data|
     mode "0755"
     recursive true
   end
+  
+  execute "enable-sites" do
+    command "a2ensite #{sitename}"
+    action :nothing
+  end
 
   template "/etc/apache2/sites-available/#{sitename}.conf" do
     source "virtualhosts.erb"
