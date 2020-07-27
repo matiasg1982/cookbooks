@@ -17,4 +17,15 @@ node["lamp_stack"]["sites"].each do |sitename, data|
     recursive true
   end
 
+  template "/etc/apache2/sites-available/#{sitename}.conf" do
+    source "virtualhosts.erb"
+    mode "0644"
+    variables(
+      :document_root => document_root,
+      :port => data["port"],
+      :serveradmin => data["serveradmin"],
+      :servername => data["servername"]
+    )
+  end
+
 end
