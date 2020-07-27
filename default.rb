@@ -1,6 +1,5 @@
 #
-# Cookbook Name:: lamp_stack
-# Recipe:: default
+# Cookbook: recipe_php
 #
 #
 
