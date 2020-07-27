@@ -31,6 +31,26 @@ node["lamp_stack"]["sites"].each do |sitename, data|
       :serveradmin => data["serveradmin"],
       :servername => data["servername"]
     )
+    notifies :run, "execute[enable-sites]"
+    notifies :restart, "service[apache2]"
+  end
+  
+  directory "/var/www/html/#{sitename}/public_html" do
+    action :create
   end
 
+  directory "/var/www/html/#{sitename}/logs" do
+    action :create
+  end
+  
+  execute "enable-prefork" do
+    command "a2enmod mpm_prefork"
+    action :nothing
+  end
+
+  cookbook_file "/etc/apache2/mods-available/mpm_prefork.conf" do
+    source "mpm_prefork.conf"
+    mode "0644"
+    notifies :run, "execute[enable-prefork]"
+  end
 end
