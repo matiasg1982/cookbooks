@@ -5,6 +5,6 @@
 #
 
 execute "update-upgrade" do
-  command "sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' upgrade"
+  command "sudo apt-get update -y && sudo apt-get upgrade -y"
   action :run
 end
